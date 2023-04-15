@@ -1,0 +1,102 @@
+<h1>Notification Form</h1>
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="row justify-content-md-center"
+>
+  <div class="col-md-6 mb-3">
+    <label for="firstname" class="form-label">First Name</label>
+    <input
+      id="firstname"
+      class="form-control"
+      type="text"
+      formControlName="firstname"
+      placeholder="John"
+      [ngClass]="{ 'is-invalid': firstname.invalid && firstname.touched, 'is-valid': firstname.valid }"
+    />
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label for="lastname" class="form-label">Last Name</label>
+    <input
+      id="lastname"
+      class="form-control"
+      type="text"
+      formControlName="lastname"
+      placeholder="Smith"
+      [ngClass]="{ 'is-invalid': lastname.invalid && lastname.touched, 'is-valid': lastname.valid }"
+    />
+  </div>
+
+  <div class="col-md-12">
+    <p>How would you prefer to be notified?</p>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="email-check"
+        (change)="toggleCheck('email')"
+      />
+      <label class="form-check-label"> Email </label>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        (change)="toggleCheck('phone')"
+      />
+      <label class="form-check-label"> Phone Number </label>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <input
+      type="email"
+      class="form-control"
+      placeholder="example@test.com"
+      formControlName="email"
+      [ngClass]="{ 'is-invalid': email.invalid && email.touched, 'is-valid': email.valid }"
+    />
+  </div>
+  <div class="col-md-6 mb-3">
+    <input
+      type="tel"
+      class="form-control"
+      placeholder="1234567890"
+      formControlName="phone"
+      maxlength="10"
+      [ngClass]="{ 'is-invalid': phone.invalid && phone.touched, 'is-valid': phone.valid }"
+    />
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label for="supervisor" class="form-label">Supervisor</label>
+    <select
+      id="supervisor"
+      class="form-select"
+      formControlName="supervisor"
+      [ngClass]="{ 'is-invalid': supervisor.invalid && supervisor.touched, 'is-valid': supervisor.valid }"
+    >
+      <option *ngFor="let s of supervisors" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary px-5">Submit</button>
+  </div>
+</form>
+
+<div
+  *ngIf="!formAlertClosed"
+  (closed)="formAlertClosed = true"
+  class="alert alert-success m-5"
+  role="alert"
+>
+  {{ alertMsg }}
+</div>

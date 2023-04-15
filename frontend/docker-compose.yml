@@ -1,0 +1,9 @@
+version: '1.0'
+
+services:
+  lightfeather-frontend:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - 80:80

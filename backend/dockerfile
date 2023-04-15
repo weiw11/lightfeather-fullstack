@@ -1,0 +1,9 @@
+FROM maven:3.8.7-openjdk-18-slim AS build  
+COPY src /app/backend/src  
+COPY pom.xml /app/backend
+RUN mvn -f /app/backend/pom.xml clean package
+
+FROM eclipse-temurin:17.0.6_10-jre-ubi9-minimal
+COPY --from=build /app/backend/target/backend-0.0.1-SNAPSHOT.jar /usr/app/backend-0.0.1-SNAPSHOT.jar
+EXPOSE 8080  
+ENTRYPOINT ["java","-jar","/usr/app/backend-0.0.1-SNAPSHOT.jar"]  
